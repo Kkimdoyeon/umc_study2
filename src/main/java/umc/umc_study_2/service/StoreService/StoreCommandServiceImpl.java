@@ -7,6 +7,7 @@ import umc.umc_study_2.apiPayload.exception.handler.RegionHandler;
 import umc.umc_study_2.apiPayload.code.status.ErrorStatus;
 import umc.umc_study_2.converter.StoreConverter;
 import umc.umc_study_2.domain.Region;
+import umc.umc_study_2.domain.Review;
 import umc.umc_study_2.domain.Store;
 import umc.umc_study_2.repository.RegionRepository.RegionRepository;
 import umc.umc_study_2.repository.StoreRepository.StoreRepository;
@@ -20,7 +21,7 @@ public class StoreCommandServiceImpl implements StoreCommandService{
 
     @Override
     @Transactional
-    public Store addStoreToRegion(StoreRequestDTO.addStore request) {
+    public Store addStoreToRegion(StoreRequestDTO.addStoreDTO request) {
         Store newStore = StoreConverter.toStore(request);
         Region region = regionRepository.findById(request.getRegionId()).orElseThrow(() -> new RegionHandler(ErrorStatus.REGION_NOT_FOUND));
         newStore.setRegion(region);
