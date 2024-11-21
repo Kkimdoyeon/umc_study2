@@ -37,4 +37,9 @@ public class MemberMissionCommandServiceImpl implements MemberMissionCommandServ
 
         return memberMissionRepository.save(newMemberMission);
     }
+
+    @Override
+    public boolean isMissionExist(Long missionId) {
+        return memberMissionRepository.existsById(missionId);
+    }
 }

@@ -5,4 +5,6 @@ import umc.umc_study_2.web.dto.MemberMission.MemberMissionRequestDTO;
 
 public interface MemberMissionCommandService {
     public MemberMission challengingMemberMission(MemberMissionRequestDTO.ChallengingDto request);
+
+    boolean isMissionExist(Long missionId);
 }
