@@ -83,17 +83,21 @@ public class UmcStudy2Application {
 //
 //            memberQueryService.findMemberById(id);
 
-            //홈 화면 쿼리 (달성한 미션 갯수)
             MissionQueryService missionQueryService = context.getBean(MissionQueryService.class);
+            Pageable pageable = PageRequest.of(0, 10);
 
-            Long memberId = 2L;
-            MissionStatus status = MissionStatus.valueOf("COMPLETE");
+            Long memberId = 1L;
+            MissionStatus status = MissionStatus.valueOf("NOT_STARTED");
+            Long lastMissionId = 10L;
+            String regionName = "서울";
 
-            System.out.println("Executing findCompletedMissionCountByMemberIdAndStatus with parameters:");
+            System.out.println("Executing findNotStartedMissionByMemberIdAndStatusAndRegionName with parameters:");
+            System.out.println("Member ID: " + memberId);
             System.out.println("Status: " + status);
+            System.out.println("Region Name: " + regionName);
 
-            missionQueryService.findCompletedMissionCountByMemberIdAndStatus(memberId, status);
-
+            missionQueryService.findNotStartedMissionByMemberIdAndStatusAndRegionName(memberId, status, regionName, lastMissionId, pageable)
+                    .forEach(System.out::println);
         };
     }
 }

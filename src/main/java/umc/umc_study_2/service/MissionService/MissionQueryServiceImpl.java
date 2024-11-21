@@ -35,4 +35,11 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         System.out.println("Completed Mission Count: " + count);
         return count;
     }
+
+    @Override
+    public Page<MemberMission> findNotStartedMissionByMemberIdAndStatusAndRegionName(Long memberId, MissionStatus status, String regionName, Long lastMissionId, Pageable pageable) {
+        Page<MemberMission> filteredMemberMissions = missionRepository.findNotStartedMissionByMemberIdAndStatusAndRegionName(memberId, status, regionName, lastMissionId, pageable);
+        filteredMemberMissions.forEach(memberMission -> System.out.println("MemberMission: " + memberMission));
+        return filteredMemberMissions;
+    }
 }

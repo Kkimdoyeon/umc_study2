@@ -7,6 +7,9 @@ import umc.umc_study_2.domain.Mission;
 import umc.umc_study_2.domain.common.BaseEntity;
 import umc.umc_study_2.domain.enums.MissionStatus;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 @Entity
 @Getter
 @Builder
@@ -34,10 +37,9 @@ public class MemberMission extends BaseEntity {
     public String toString() {
         return "MemberMission{" +
                 "id=" + id +
-                ", point=" + member.getPoint() +
                 ", name=" + mission.getStore().getName() +
+                ", deadline=" + ChronoUnit.DAYS.between(LocalDate.now(), mission.getDeadline()) +
                 ", reward=" + mission.getReward() +
-                ", mission_spec=" + mission.getMissionSpec() +
                 ", status=" + status +
                 '}';
     }
