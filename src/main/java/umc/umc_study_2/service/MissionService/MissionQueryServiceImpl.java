@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import umc.umc_study_2.domain.Mission;
 import umc.umc_study_2.domain.enums.MissionStatus;
 import umc.umc_study_2.domain.mapping.MemberMission;
 import umc.umc_study_2.repository.MissionRepository.MissionRepository;
@@ -18,7 +19,7 @@ public class MissionQueryServiceImpl implements MissionQueryService {
     private final MissionRepository missionRepository;
 
     @Override
-    public Optional<MemberMission> findMemberMission(Long id) {
+    public Optional<Mission> findMemberMission(Long id) {
         return missionRepository.findById(id);
     }
 
