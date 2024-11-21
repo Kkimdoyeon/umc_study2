@@ -2,6 +2,9 @@ package umc.umc_study_2.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.umc_study_2.domain.common.BaseEntity;
 
 import java.util.ArrayList;
@@ -9,6 +12,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -24,7 +29,7 @@ public class Store extends BaseEntity {
     @Column(nullable = false)
     private String address;
 
-    @Column(nullable = false)
+    @ColumnDefault("0")
     private Float score;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -46,5 +51,12 @@ public class Store extends BaseEntity {
                 ", score=" + score +
                 ", region=" + (region != null ? region.getName() : "N/A") + // region의 이름 출력
                 '}';
+    }
+
+    public void setRegion(Region region) {
+        if(this.region != null)
+            region.getStoreList().remove(this);
+        this.region = region;
+        region.getStoreList().add(this);
     }
 }
