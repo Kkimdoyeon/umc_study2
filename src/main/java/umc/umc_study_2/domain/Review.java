@@ -22,7 +22,6 @@ public class Review extends BaseEntity {
     private Float score;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
-    @Column(nullable = false)
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 }

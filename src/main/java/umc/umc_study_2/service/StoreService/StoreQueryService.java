@@ -1,4 +1,4 @@
-package umc.umc_study_2.Service.StoreService;
+package umc.umc_study_2.service.StoreService;
 
 import umc.umc_study_2.domain.Store;
 

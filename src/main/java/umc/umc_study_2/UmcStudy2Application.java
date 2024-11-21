@@ -5,8 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import umc.umc_study_2.Service.StoreService.StoreQueryService;
+import umc.umc_study_2.domain.enums.MissionStatus;
+import umc.umc_study_2.service.MissionService.MissionQueryService;
+import umc.umc_study_2.service.StoreService.StoreQueryService;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -19,18 +23,32 @@ public class UmcStudy2Application {
     @Bean
     public CommandLineRunner run(ApplicationContext context) {
         return args -> {
-            StoreQueryService storeService = context.getBean(StoreQueryService.class);
+//            StoreQueryService storeService = context.getBean(StoreQueryService.class);
+//
+//            // 파라미터 값 설정
+//            String name = "스타벅스 강남점";
+//            Float score = 4.5f;
+//
+//            // 쿼리 메서드 호출 및 쿼리 문자열과 파라미터 출력
+//            System.out.println("Executing findStoresByNameAndScore with parameters:");
+//            System.out.println("Name: " + name);
+//            System.out.println("Score: " + score);
+//
+//            storeService.findStoresByNameAndScore(name, score)
+//                    .forEach(System.out::println);
 
-            // 파라미터 값 설정
-            String name = "스타벅스 강남점";
-            Float score = 4.5f;
+            MissionQueryService memberMissionService = context.getBean(MissionQueryService.class);
+            Pageable pageable = PageRequest.of(0, 10);
 
-            // 쿼리 메서드 호출 및 쿼리 문자열과 파라미터 출력
-            System.out.println("Executing findStoresByNameAndScore with parameters:");
-            System.out.println("Name: " + name);
-            System.out.println("Score: " + score);
+            Long memberId = 1L;
+            MissionStatus status = MissionStatus.valueOf("CHALLENGING");
+            //MissionStatus status = MissionStatus.valueOf("COMPLETE");
+            Long lastMissionId = 10L;
 
-            storeService.findStoresByNameAndScore(name, score)
+            System.out.println("Executing findMissionByMemberIdAndStatus with parameters:");
+            System.out.println("Status: " + status);
+
+            memberMissionService.findMissionByMemberIdAndStatus(memberId, status, lastMissionId, pageable)
                     .forEach(System.out::println);
         };
     }

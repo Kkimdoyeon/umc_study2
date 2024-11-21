@@ -19,6 +19,7 @@ public class MemberMission extends BaseEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "VARCHAR(15) DEFAULT 'NOT_STARTED'")
     private MissionStatus status;
 
     @ManyToOne
@@ -28,4 +29,16 @@ public class MemberMission extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "mission_id")
     private Mission mission;
+
+    @Override
+    public String toString() {
+        return "MemberMission{" +
+                "id=" + id +
+                ", point=" + member.getPoint() +
+                ", name=" + mission.getStore().getName() +
+                ", reward=" + mission.getReward() +
+                ", mission_spec=" + mission.getMissionSpec() +
+                ", status=" + status +
+                '}';
+    }
 }
