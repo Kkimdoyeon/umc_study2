@@ -2,6 +2,7 @@ package umc.umc_study_2.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import umc.umc_study_2.domain.common.BaseEntity;
 
 @Entity
@@ -18,7 +19,7 @@ public class Review extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @ColumnDefault("0")
     private Float score;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,5 +42,20 @@ public class Review extends BaseEntity {
                 ", body='" + body + '\'' +
                 ", score=" + score +
                 '}';
+    }
+
+
+    public void setMember(Member member) {
+        if(this.member != null)
+            this.member.getReviewList().remove(this);
+        this.member = member;
+        this.member.getReviewList().add(this);
+    }
+
+    public void setStore(Store store) {
+        if(this.store != null)
+            this.store.getReviewList().remove(this);
+        this.store = store;
+        this.store.getReviewList().add(this);
     }
 }
