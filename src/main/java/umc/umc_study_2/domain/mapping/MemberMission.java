@@ -2,10 +2,10 @@ package umc.umc_study_2.domain.mapping;
 
 import jakarta.persistence.*;
 import lombok.*;
-import umc.spring.domain.Member;
-import umc.spring.domain.Mission;
-import umc.spring.domain.common.BaseEntity;
-import umc.spring.domain.enums.MissionStatus;
+import umc.umc_study_2.domain.Member;
+import umc.umc_study_2.domain.Mission;
+import umc.umc_study_2.domain.common.BaseEntity;
+import umc.umc_study_2.domain.enums.MissionStatus;
 
 @Entity
 @Getter

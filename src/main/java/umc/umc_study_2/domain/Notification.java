@@ -2,8 +2,8 @@ package umc.umc_study_2.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import umc.spring.domain.common.BaseEntity;
-import umc.spring.domain.enums.NotificationType;
+import umc.umc_study_2.domain.common.BaseEntity;
+import umc.umc_study_2.domain.enums.NotificationType;
 
 @Entity
 @Getter

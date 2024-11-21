@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
-import umc.spring.domain.common.BaseEntity;
+import umc.umc_study_2.domain.common.BaseEntity;
 
 @Entity
 @Getter
