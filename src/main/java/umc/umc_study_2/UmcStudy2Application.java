@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import umc.umc_study_2.domain.enums.MissionStatus;
+import umc.umc_study_2.service.MemberService.MemberQueryService;
 import umc.umc_study_2.service.MissionService.MissionQueryService;
 import umc.umc_study_2.service.ReviewService.ReviewQueryService;
 import umc.umc_study_2.service.StoreService.StoreQueryService;
@@ -53,24 +54,34 @@ public class UmcStudy2Application {
 //            memberMissionService.findMissionByMemberIdAndStatus(memberId, status, lastMissionId, pageable)
 //                    .forEach(System.out::println);
 
-            // 리뷰 작성하는 쿼리
-            ReviewQueryService reviewService = context.getBean(ReviewQueryService.class);
+//            // 리뷰 작성하는 쿼리
+//            ReviewQueryService reviewService = context.getBean(ReviewQueryService.class);
+//
+//            Long member_id = 1L;
+//            Long store_id = 1L;
+//            float score = 4.5F;
+//            String title = "스타벅스 강남점 리뷰";
+//            String body = "매장이 크고 쾌적함";
+//
+//            // 쿼리 메서드 호출 및 쿼리 문자열과 파라미터 출력
+//            System.out.println("Executing insertReview with parameters:");
+//            System.out.println("Member ID: " + member_id);
+//            System.out.println("Store ID: " + store_id);
+//            System.out.println("Score: " + score);
+//            System.out.println("Title: " + title);
+//            System.out.println("Body: " + body);
+//
+//            reviewService.insertReview(member_id, store_id, title, body, score);
 
-            Long member_id = 1L;
-            Long store_id = 1L;
-            float score = 4.5F;
-            String title = "스타벅스 강남점 리뷰";
-            String body = "매장이 크고 쾌적함";
+            //마이페이지 화면 쿼리
+            MemberQueryService memberQueryService = context.getBean(MemberQueryService.class);
 
-            // 쿼리 메서드 호출 및 쿼리 문자열과 파라미터 출력
+            Long id = 1L;
+
             System.out.println("Executing insertReview with parameters:");
-            System.out.println("Member ID: " + member_id);
-            System.out.println("Store ID: " + store_id);
-            System.out.println("Score: " + score);
-            System.out.println("Title: " + title);
-            System.out.println("Body: " + body);
+            System.out.println("Member ID: " + id);
 
-            reviewService.insertReview(member_id, store_id, title, body, score);
+            memberQueryService.findMemberById(id);
 
         };
     }

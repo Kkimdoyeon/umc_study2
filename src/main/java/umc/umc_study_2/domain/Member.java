@@ -55,6 +55,9 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private Integer point;
 
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean is_phone_verified;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberAgree> memberAgreeList = new ArrayList<>();
 
@@ -69,4 +72,15 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name +
+                ", email='" + email +
+                ", point=" + point +
+                ", is_phone_verified=" + is_phone_verified +
+                '}';
+    }
 }

@@ -35,6 +35,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final DatePath<java.time.LocalDate> inactiveDate = createDate("inactiveDate", java.time.LocalDate.class);
 
+    public final BooleanPath is_phone_verified = createBoolean("is_phone_verified");
+
     public final ListPath<umc.umc_study_2.domain.mapping.MemberAgree, umc.umc_study_2.domain.mapping.QMemberAgree> memberAgreeList = this.<umc.umc_study_2.domain.mapping.MemberAgree, umc.umc_study_2.domain.mapping.QMemberAgree>createList("memberAgreeList", umc.umc_study_2.domain.mapping.MemberAgree.class, umc.umc_study_2.domain.mapping.QMemberAgree.class, PathInits.DIRECT2);
 
     public final ListPath<umc.umc_study_2.domain.mapping.MemberMission, umc.umc_study_2.domain.mapping.QMemberMission> memberMissionList = this.<umc.umc_study_2.domain.mapping.MemberMission, umc.umc_study_2.domain.mapping.QMemberMission>createList("memberMissionList", umc.umc_study_2.domain.mapping.MemberMission.class, umc.umc_study_2.domain.mapping.QMemberMission.class, PathInits.DIRECT2);
