@@ -86,11 +86,13 @@ public class UmcStudy2Application {
             //홈 화면 쿼리 (달성한 미션 갯수)
             MissionQueryService missionQueryService = context.getBean(MissionQueryService.class);
 
-            Long memberId = 1L;
+            Long memberId = 2L;
             MissionStatus status = MissionStatus.valueOf("COMPLETE");
 
             System.out.println("Executing findCompletedMissionCountByMemberIdAndStatus with parameters:");
             System.out.println("Status: " + status);
+
+            missionQueryService.findCompletedMissionCountByMemberIdAndStatus(memberId, status);
 
         };
     }
