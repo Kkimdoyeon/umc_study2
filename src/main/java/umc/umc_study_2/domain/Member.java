@@ -35,21 +35,24 @@ public class Member extends BaseEntity {
     private String specAddress;
 
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(10)")
+    @Column(columnDefinition = "VARCHAR(10)", nullable = false)
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SocialType socialType;
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private MemberStatus status;
 
+    @Column(nullable = false)
     private LocalDate inactiveDate;
 
     @Column(nullable = false, length = 50)
     private String email;
 
+    @Column(nullable = false)
     private Integer point;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
