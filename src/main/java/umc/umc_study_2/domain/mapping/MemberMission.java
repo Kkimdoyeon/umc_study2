@@ -2,6 +2,8 @@ package umc.umc_study_2.domain.mapping;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import umc.umc_study_2.domain.Member;
 import umc.umc_study_2.domain.Mission;
 import umc.umc_study_2.domain.common.BaseEntity;
@@ -12,6 +14,8 @@ import java.time.temporal.ChronoUnit;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor

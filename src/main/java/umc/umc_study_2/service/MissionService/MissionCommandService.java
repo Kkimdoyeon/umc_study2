@@ -5,4 +5,5 @@ import umc.umc_study_2.web.dto.Mission.MissionRequestDTO;
 
 public interface MissionCommandService {
     Mission addMissionToStore(MissionRequestDTO.AddMissionDTO request);
+    public boolean doMissionExist(Long missionId);
 }

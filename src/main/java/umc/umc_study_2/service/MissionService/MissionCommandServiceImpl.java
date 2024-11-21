@@ -27,4 +27,13 @@ public class MissionCommandServiceImpl implements MissionCommandService{
         newMission.setStore(store);
         return missionRepository.save(newMission);
     }
+
+    // 해당 missionId에 맞는 미션이 존재하는지
+    @Override
+    public boolean doMissionExist(Long missionId) {
+        if (missionId == null) {
+            return false;
+        }
+        return missionRepository.existsById(missionId);
+    }
 }

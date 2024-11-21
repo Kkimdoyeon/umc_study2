@@ -5,4 +5,6 @@ import umc.umc_study_2.web.dto.Member.MemberRequestDTO;
 
 public interface MemberCommandService {
     Member joinMember(MemberRequestDTO.JoinDto request);
+
+    boolean doMemberExist(Long memberId);
 }

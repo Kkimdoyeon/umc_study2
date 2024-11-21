@@ -41,4 +41,13 @@ public class MemberCommandServiceImpl implements MemberCommandService{
 
         return memberRepository.save(newMember);
     }
+
+    @Override
+    public boolean doMemberExist(Long memberId) {
+        if (memberId == null) {
+            return false; // null 유효하지 않음
+        }
+
+        return memberRepository.existsById(memberId);
+    }
 }
