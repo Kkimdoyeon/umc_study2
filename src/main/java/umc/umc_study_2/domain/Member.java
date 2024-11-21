@@ -49,7 +49,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private LocalDate inactiveDate;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = true, length = 50)
     private String email;
 
     @Column(nullable = false)
