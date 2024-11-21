@@ -20,7 +20,7 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
     private final QMemberMission memberMission = QMemberMission.memberMission;
 
     @Override
-    public Page<MemberMission> dynamicQueryWithBooleanBuilder(Long memberId, MissionStatus status, Long lastMissionId, Pageable pageable) {
+    public Page<MemberMission> findMissionsByMemberIdAndStatus(Long memberId, MissionStatus status, Long lastMissionId, Pageable pageable) {
         BooleanBuilder predicate = new BooleanBuilder();
 
         if(memberId != null) {
@@ -43,11 +43,26 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        long total = jpaQueryFactory
+        int total = jpaQueryFactory
                 .selectFrom(memberMission)
                 .where(predicate)
                 .fetch().size();
 
         return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public int findCompletedMissionCountByMemberIdAndStatus(Long memberId, MissionStatus status) {
+        BooleanBuilder predicate = new BooleanBuilder();
+        if(memberId != null) {
+            predicate.and(memberMission.member.id.eq(memberId));
+        }
+        if(status != null) {
+            predicate.and(memberMission.status.eq(status));
+        }
+        return jpaQueryFactory
+                .selectFrom(memberMission)
+                .where(predicate)
+                .fetch().size();
     }
 }

@@ -73,15 +73,24 @@ public class UmcStudy2Application {
 //
 //            reviewService.insertReview(member_id, store_id, title, body, score);
 
-            //마이페이지 화면 쿼리
-            MemberQueryService memberQueryService = context.getBean(MemberQueryService.class);
+//            //마이페이지 화면 쿼리
+//            MemberQueryService memberQueryService = context.getBean(MemberQueryService.class);
+//
+//            Long id = 1L;
+//
+//            System.out.println("Executing insertReview with parameters:");
+//            System.out.println("Member ID: " + id);
+//
+//            memberQueryService.findMemberById(id);
 
-            Long id = 1L;
+            //홈 화면 쿼리 (달성한 미션 갯수)
+            MissionQueryService missionQueryService = context.getBean(MissionQueryService.class);
 
-            System.out.println("Executing insertReview with parameters:");
-            System.out.println("Member ID: " + id);
+            Long memberId = 1L;
+            MissionStatus status = MissionStatus.valueOf("COMPLETE");
 
-            memberQueryService.findMemberById(id);
+            System.out.println("Executing findCompletedMissionCountByMemberIdAndStatus with parameters:");
+            System.out.println("Status: " + status);
 
         };
     }
