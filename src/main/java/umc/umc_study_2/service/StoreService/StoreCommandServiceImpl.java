@@ -27,4 +27,9 @@ public class StoreCommandServiceImpl implements StoreCommandService{
         newStore.setRegion(region);
         return storeRepository.save(newStore);
     }
+
+    @Override
+    public boolean isStoreExist(Long value) {
+        return storeRepository.existsById(value);
+    }
 }

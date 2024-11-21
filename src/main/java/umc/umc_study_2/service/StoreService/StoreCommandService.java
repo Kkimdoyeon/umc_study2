@@ -5,4 +5,5 @@ import umc.umc_study_2.web.dto.Store.StoreRequestDTO;
 
 public interface StoreCommandService {
     Store addStoreToRegion(StoreRequestDTO.addStoreDTO request);
+    boolean isStoreExist(Long value);
 }

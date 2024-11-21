@@ -26,7 +26,6 @@ public class MemberExistValidator implements ConstraintValidator<ExistMember, Lo
             return false;
         }
 
-        // Service 계층을 통해 지역 존재 여부 확인
         boolean isValid;
         try {
             isValid = memberCommandServiceImpl.doMemberExist(value);
