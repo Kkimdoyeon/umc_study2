@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import umc.umc_study_2.domain.enums.MissionStatus;
 import umc.umc_study_2.service.MissionService.MissionQueryService;
+import umc.umc_study_2.service.ReviewService.ReviewQueryService;
 import umc.umc_study_2.service.StoreService.StoreQueryService;
 
 @SpringBootApplication
@@ -37,19 +38,40 @@ public class UmcStudy2Application {
 //            storeService.findStoresByNameAndScore(name, score)
 //                    .forEach(System.out::println);
 
-            MissionQueryService memberMissionService = context.getBean(MissionQueryService.class);
-            Pageable pageable = PageRequest.of(0, 10);
+            // 미션 진행중/진행 완료 조회 쿼리
+//            MissionQueryService memberMissionService = context.getBean(MissionQueryService.class);
+//            Pageable pageable = PageRequest.of(0, 10);
+//
+//            Long memberId = 1L;
+//            MissionStatus status = MissionStatus.valueOf("CHALLENGING");
+//            //MissionStatus status = MissionStatus.valueOf("COMPLETE");
+//            Long lastMissionId = 10L;
+//
+//            System.out.println("Executing findMissionByMemberIdAndStatus with parameters:");
+//            System.out.println("Status: " + status);
+//
+//            memberMissionService.findMissionByMemberIdAndStatus(memberId, status, lastMissionId, pageable)
+//                    .forEach(System.out::println);
 
-            Long memberId = 1L;
-            MissionStatus status = MissionStatus.valueOf("CHALLENGING");
-            //MissionStatus status = MissionStatus.valueOf("COMPLETE");
-            Long lastMissionId = 10L;
+            // 리뷰 작성하는 쿼리
+            ReviewQueryService reviewService = context.getBean(ReviewQueryService.class);
 
-            System.out.println("Executing findMissionByMemberIdAndStatus with parameters:");
-            System.out.println("Status: " + status);
+            Long member_id = 1L;
+            Long store_id = 1L;
+            float score = 4.5F;
+            String title = "스타벅스 강남점 리뷰";
+            String body = "매장이 크고 쾌적함";
 
-            memberMissionService.findMissionByMemberIdAndStatus(memberId, status, lastMissionId, pageable)
-                    .forEach(System.out::println);
+            // 쿼리 메서드 호출 및 쿼리 문자열과 파라미터 출력
+            System.out.println("Executing insertReview with parameters:");
+            System.out.println("Member ID: " + member_id);
+            System.out.println("Store ID: " + store_id);
+            System.out.println("Score: " + score);
+            System.out.println("Title: " + title);
+            System.out.println("Body: " + body);
+
+            reviewService.insertReview(member_id, store_id, title, body, score);
+
         };
     }
 }

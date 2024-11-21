@@ -21,7 +21,25 @@ public class Review extends BaseEntity {
     @Column(nullable = false)
     private Float score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String body;
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", member_id=" + (member != null ? member.getId() : "null") +
+                ", store_id=" + (store != null ? store.getId() : "null") +
+                ", body='" + body + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }
