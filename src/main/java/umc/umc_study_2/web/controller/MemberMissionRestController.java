@@ -12,7 +12,7 @@ import umc.umc_study_2.web.dto.MemberMission.MemberMissionResponseDTO;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/mission/challenge")
+@RequestMapping("/api/missions/challenge")
 public class MemberMissionRestController {
     private final MemberMissionCommandService memberMissionCommandService;
 
