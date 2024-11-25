@@ -24,6 +24,7 @@ public class StoreConverter {
                 .build();
     }
 
+    // 가게의 리뷰 목록 조회
     public static StoreResponseDTO.ReviewPreViewDTO reviewPreViewDTO(Review review){
         return StoreResponseDTO.ReviewPreViewDTO.builder()
                 // review에 @ManyToOne으로 지정해둔 Member를 통해 아주 편하게 데이터를 가져올 수 있음
@@ -34,7 +35,6 @@ public class StoreConverter {
                 .body(review.getBody())
                 .build();
     }
-
     // ListDTO를 위해 리스트에 들어갈 DTO를
     // 다른 Converter에서 제작해서 이를 Java stream을 통해 DTO의 List를 만듦
     public static StoreResponseDTO.ReviewPreViewListDTO reviewPreViewListDTO(Page<Review> reviewList){
