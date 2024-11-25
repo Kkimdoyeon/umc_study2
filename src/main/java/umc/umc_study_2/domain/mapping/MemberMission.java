@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 @Entity
+@Setter
 @Getter
 @DynamicUpdate
 @DynamicInsert
@@ -47,4 +48,5 @@ public class MemberMission extends BaseEntity {
                 ", status=" + status +
                 '}';
     }
+
 }

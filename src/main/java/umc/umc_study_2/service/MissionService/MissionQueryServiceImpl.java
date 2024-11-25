@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import umc.umc_study_2.domain.Mission;
 import umc.umc_study_2.domain.enums.MissionStatus;
 import umc.umc_study_2.domain.mapping.MemberMission;
+import umc.umc_study_2.repository.MemberMissionRepository.MemberMissionRepository;
 import umc.umc_study_2.repository.MissionRepository.MissionRepository;
 import java.util.Optional;
 
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class MissionQueryServiceImpl implements MissionQueryService {
 
     private final MissionRepository missionRepository;
+    private final MemberMissionRepository memberMissionRepository;
+
 
     @Override
     public Optional<Mission> findMemberMission(Long id) {
@@ -42,5 +45,10 @@ public class MissionQueryServiceImpl implements MissionQueryService {
         Page<MemberMission> filteredMemberMissions = missionRepository.findNotStartedMissionByMemberIdAndStatusAndRegionName(memberId, status, regionName, lastMissionId, pageable);
         filteredMemberMissions.forEach(memberMission -> System.out.println("MemberMission: " + memberMission));
         return filteredMemberMissions;
+    }
+
+    @Override
+    public boolean findByMemberIdAndMissionIdAndStatus(Long memberId, Long missionId, MissionStatus missionStatus) {
+        return memberMissionRepository.findByMemberIdAndMissionIdAndStatus(memberId, missionId, missionStatus).isPresent();
     }
 }
