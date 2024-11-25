@@ -9,7 +9,6 @@ import umc.umc_study_2.domain.Review;
 import umc.umc_study_2.domain.Store;
 import umc.umc_study_2.repository.ReviewRepository.ReviewRepository;
 import umc.umc_study_2.repository.StoreRepository.StoreRepository;
-import umc.umc_study_2.service.StoreService.StoreQueryService;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +36,7 @@ public class StoreQueryServiceImpl implements StoreQueryService {
     }
 
     // 페이징 처리를 위해 Page<> 처리
+    // 가게 리뷰 목록 조회
     @Override
     public Page<Review> getReviewList(Long StoreId, Integer page) {
 
