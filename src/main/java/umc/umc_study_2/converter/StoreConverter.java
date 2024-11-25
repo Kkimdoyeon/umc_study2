@@ -1,6 +1,7 @@
 package umc.umc_study_2.converter;
 
 import org.springframework.data.domain.Page;
+import umc.umc_study_2.domain.Mission;
 import umc.umc_study_2.domain.Review;
 import umc.umc_study_2.domain.Store;
 import umc.umc_study_2.web.dto.Store.StoreRequestDTO;
@@ -49,6 +50,31 @@ public class StoreConverter {
                 .totalElements(reviewList.getTotalElements())
                 .listSize(reviewPreViewDTOList.size())
                 .reviewList(reviewPreViewDTOList)
+                .build();
+    }
+
+    // 가게의 미션 목록 조회
+    public static StoreResponseDTO.MissionPreViewDTO missionPreViewDTO(Mission mission){
+        return StoreResponseDTO.MissionPreViewDTO.builder()
+                .storeNickname(mission.getStore().getName())
+                .deadline(mission.getDeadline())
+                .createdAt(mission.getCreatedAt().toLocalDate())
+                .missionSpec(mission.getMissionSpec())
+                .reward(mission.getReward())
+                .build();
+    }
+    public static StoreResponseDTO.MissionPreViewListDTO missionPreViewListDTO(Page<Mission> missionList){
+
+        List<StoreResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(StoreConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return StoreResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
                 .build();
     }
 }
