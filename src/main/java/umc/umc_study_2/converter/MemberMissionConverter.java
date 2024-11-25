@@ -59,4 +59,12 @@ public class MemberMissionConverter {
                 .missionList(missionPreViewDTOList)
                 .build();
     }
+
+    public static MissionResponseDTO.UpdateMissionStatusResultDTO toUpdateMissionStatusResultDTO(MemberMission memberMission) {
+        return MissionResponseDTO.UpdateMissionStatusResultDTO.builder()
+                .missionId(memberMission.getId())
+                .status(memberMission.getStatus())
+                .updatedAt(memberMission.getUpdatedAt())
+                .build();
+    }
 }

@@ -44,4 +44,14 @@ public class MissionResponseDTO {
         MissionStatus status;
         String storeName;
     }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class UpdateMissionStatusResultDTO {
+        Long missionId;
+        MissionStatus status;
+        LocalDateTime updatedAt;
+    }
 }
