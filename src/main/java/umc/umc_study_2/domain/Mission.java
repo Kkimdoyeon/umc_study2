@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import umc.umc_study_2.domain.common.BaseEntity;
+import umc.umc_study_2.domain.enums.MissionStatus;
 import umc.umc_study_2.domain.mapping.MemberMission;
 
 import java.time.LocalDate;
@@ -33,6 +34,10 @@ public class Mission extends BaseEntity {
 
     @Column(nullable = false)
     private String missionSpec;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, columnDefinition = "VARCHAR(15) DEFAULT 'NOT_STARTED'")
+    private MissionStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
