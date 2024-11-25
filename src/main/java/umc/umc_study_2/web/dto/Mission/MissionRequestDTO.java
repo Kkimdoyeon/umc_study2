@@ -17,8 +17,6 @@ public class MissionRequestDTO {
         @NotNull
         LocalDate deadline;
         @NotNull
-        Integer price;
-        @NotNull
         Integer reward;
     }
 }
