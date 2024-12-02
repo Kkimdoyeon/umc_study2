@@ -28,14 +28,23 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
+        String clientName = userRequest.getClientRegistration().getClientName();
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
 
-        String nickname = (String) properties.get("nickname");
-        String email = nickname + "@kakao.com"; // 임시 이메일 생성
+        String email = null;
+        String name = null;
+
+        if ("kakao".equals(clientName)) {
+            Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
+            name = (String) properties.get("nickname");
+            email = name + "@kakao.com";  // 임시 이메일 생성
+        } else if ("google".equals(clientName)) {
+            name = (String) attributes.get("name");
+            email = (String) attributes.get("email");
+        }
 
         // 사용자 정보 저장 또는 업데이트
-        Member member = saveOrUpdateUser(email, nickname);
+        Member member = saveOrUpdateUser(email, name);
 
         // 이메일을 Principal로 사용하기 위해 attributes 수정
         Map<String, Object> modifiedAttributes = new HashMap<>(attributes);
@@ -48,11 +57,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         );
     }
 
-    private Member saveOrUpdateUser(String email, String nickname) {
+    private Member saveOrUpdateUser(String email, String name) {
         Member member = memberRepository.findByEmail(email)
                 .orElse(Member.builder()
                         .email(email)
-                        .name(nickname)
+                        .name(name)
                         .password(passwordEncoder.encode("OAUTH_USER_" + UUID.randomUUID()))
                         .gender(Gender.NONE)  // 기본값 설정
                         .address("소셜로그인")  // 기본값 설정
