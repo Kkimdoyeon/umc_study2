@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import umc.umc_study_2.domain.common.BaseEntity;
 import umc.umc_study_2.domain.enums.Gender;
 import umc.umc_study_2.domain.enums.MemberStatus;
+import umc.umc_study_2.domain.enums.Role;
 import umc.umc_study_2.domain.enums.SocialType;
 import umc.umc_study_2.domain.mapping.MemberAgree;
 import umc.umc_study_2.domain.mapping.MemberMission;
@@ -44,7 +45,7 @@ public class Member extends BaseEntity {
     private Gender gender;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    //@Column(nullable = false)
     private SocialType socialType;
 
     @Enumerated(EnumType.STRING)
@@ -52,10 +53,17 @@ public class Member extends BaseEntity {
     private MemberStatus status;
 
     @Column(nullable = false)
-    private LocalDate inactiveDate;
+    @ColumnDefault("'9999-12-31'") // 데이터베이스의 기본값
+    private LocalDate inactiveDate = LocalDate.of(9999, 12, 31); // Java의 기본값
 
-    @Column(nullable = true, length = 50)
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(nullable = false)
     @ColumnDefault("0")
@@ -78,6 +86,10 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Notification> notifications = new ArrayList<>();
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {
