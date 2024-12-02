@@ -34,14 +34,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String email = null;
         String name = null;
 
-        if ("kakao".equals(clientName)) {
+        // 로그 추가: clientName과 attributes 확인
+        System.out.println("Client Name: " + clientName);
+        System.out.println("Attributes: " + attributes);
+
+        if ("Kakao".equals(clientName)) {
             Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
             name = (String) properties.get("nickname");
             email = name + "@kakao.com";  // 임시 이메일 생성
-        } else if ("google".equals(clientName)) {
+        } else if ("Google".equals(clientName)) {
             name = (String) attributes.get("name");
             email = (String) attributes.get("email");
+        } else if ("Naver".equals(clientName)) {
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+            name = (String) response.get("name");
+            email = name + "@naver.com";
         }
+
+        // 로그 추가: name과 email 값 확인
+        System.out.println("Name: " + name);
+        System.out.println("Email: " + email);
 
         // 사용자 정보 저장 또는 업데이트
         Member member = saveOrUpdateUser(email, name);
@@ -58,6 +70,10 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private Member saveOrUpdateUser(String email, String name) {
+        if (name == null || name.isEmpty()) {
+            name = "default_name";  // 기본값 할당
+        }
+
         Member member = memberRepository.findByEmail(email)
                 .orElse(Member.builder()
                         .email(email)
