@@ -71,7 +71,7 @@ sourceSets {
 }
 
 tasks.withType(JavaCompile) {
-    options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+    options.generatedSourceOutputDirectory.set(file(querydslDir))
     options.compilerArgs += [
             '--add-opens',
             'java.base/java.lang=ALL-UNNAMED',
