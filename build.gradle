@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.6'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'umc'
@@ -14,14 +13,17 @@ java {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
-}
-
-repositories {
-    mavenCentral()
+    querydsl {
+        extendsFrom compileClasspath
+    }
 }
 
 dependencies {
@@ -33,62 +35,50 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.28'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation 'org.hibernate.orm:hibernate-core:6.0.2.Final'  // Hibernate 6.0.2 이상
-    implementation 'mysql:mysql-connector-java:8.0.33'  // MySQL 드라이버 추가
+    implementation 'org.hibernate.orm:hibernate-core:6.0.2.Final'
+    implementation 'mysql:mysql-connector-java:8.0.33'
     implementation 'org.antlr:antlr4-runtime:4.10'
 
-    // queryDSL
+    // QueryDSL
     implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
-    annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
-    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
-    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    annotationProcessor 'com.querydsl:querydsl-apt:5.0.0:jakarta'
+    annotationProcessor 'jakarta.annotation:jakarta.annotation-api'
 
-    // swagger
+    // Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
-    // spring security
+    // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
-    // thymeleaf
+    // Thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     // Spring Security OAuth2 클라이언트 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-
 }
+
+def querydslDir = "src/main/generated"
 
 sourceSets {
     main {
         java {
-            srcDirs = ['src/main/java', 'src/main/resources']
+            srcDirs += querydslDir
         }
     }
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+tasks.withType(JavaCompile) {
+    options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+    options.compilerArgs += [
+            '--add-opens',
+            'java.base/java.lang=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.util=ALL-UNNAMED'
+    ]
 }
 
-// Querydsl 설정부
-def generated = 'src/main/generated'
-
-querydsl {
-    jpa = true
-    querydslSourcesDir = generated
-}
-sourceSets {
-    main.java.srcDir generated
-}
-
-compileQuerydsl{
-    options.annotationProcessorPath = configurations.querydsl
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-    querydsl.extendsFrom compileClasspath
+clean {
+    delete fileTree(dir: querydslDir, include: '**/*.java')
 }
