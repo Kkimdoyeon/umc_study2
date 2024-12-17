@@ -52,6 +52,7 @@ public class Member extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private MemberStatus status;
 
+    @Builder.Default
     @Column(nullable = false)
     @ColumnDefault("'9999-12-31'") // 데이터베이스의 기본값
     private LocalDate inactiveDate = LocalDate.of(9999, 12, 31); // Java의 기본값
