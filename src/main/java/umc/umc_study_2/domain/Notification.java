@@ -23,7 +23,6 @@ public class Notification extends BaseEntity {
     @Column(nullable = false)
     private String message;
 
-    @Builder.Default
     @Column(nullable = false)
     private Boolean isRead = false;
 
